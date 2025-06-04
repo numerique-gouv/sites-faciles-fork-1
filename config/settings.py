@@ -90,7 +90,6 @@ INSTALLED_APPS = [
 # Only add these on a dev machine, outside of tests
 if not TESTING and DEBUG and "localhost" in HOST_URL:
     INSTALLED_APPS += [
-        "django_extensions",
         "wagtail.contrib.styleguide",
         "debug_toolbar",
     ]
@@ -203,7 +202,7 @@ WAGTAIL_I18N_ENABLED = True
 
 WAGTAIL_CONTENT_LANGUAGES = LANGUAGES = [
     ("en", "English"),
-    ("fr", "French"),
+    ("fr", "Français"),
 ]
 
 LOCALE_PATHS = ["locale"]
@@ -332,7 +331,7 @@ DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL", "")
 
 if DEFAULT_FROM_EMAIL:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_BACKEND = os.getenv("EMAIL_BACKEND", "django.core.mail.backends.smtp.EmailBackend")
     EMAIL_HOST = os.getenv("EMAIL_HOST", None)
     EMAIL_PORT = os.getenv("EMAIL_PORT", None)
     EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER", None)
