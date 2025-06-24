@@ -49,8 +49,8 @@ TESTING = "test" in sys.argv
 # Application definition
 
 INSTALLED_APPS = [
+    # The order is important for overriding templates and using contexts, please change it carefully.
     "storages",
-    "dashboard",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.routable_page",
@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     "wagtail.users",
     "wagtail.documents",
     "wagtail.images",
-    "wagtail.admin",
     "wagtail.search",
     "wagtail.snippets",
     "wagtail",
@@ -80,11 +79,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",
     "dsfr",
-    "sass_processor",
     "content_manager",
     "blog",
     "events",
     "forms",
+    "wagtail_honeypot",
+    "dashboard",
+    "wagtail.admin",
 ]
 
 # Only add these on a dev machine, outside of tests
@@ -150,6 +151,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "config.wsgi.application"
+HONEYPOT_ENABLED_DEFAULT = True
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
@@ -217,7 +219,6 @@ STORAGES["staticfiles"] = {
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "sass_processor.finders.CssFinder",
 ]
 
 # S3 uploads & MEDIA CONFIGURATION
@@ -246,11 +247,6 @@ else:
     }
     MEDIA_URL = "medias/"
     MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv("MEDIA_ROOT", ""))
-
-# Django Sass
-SASS_PROCESSOR_ROOT = os.path.join(BASE_DIR, "static/css")
-SASS_PROCESSOR_AUTO_INCLUDE = False
-SASS_OUTPUT_STYLE = "compressed"
 
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
