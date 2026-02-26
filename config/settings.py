@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.humanize",
+    "django.contrib.postgres",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.sitemaps",
@@ -324,7 +325,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 # Wagtail settings
 # https://docs.wagtail.org/en/stable/reference/settings.html
 
-WAGTAIL_SITE_NAME = os.getenv("SITE_NAME", "Sites faciles")
+WAGTAIL_SITE_NAME = os.getenv("SITE_NAME", "Sites Conformes")
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
