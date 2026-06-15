@@ -1,6 +1,10 @@
 [project]
 name = "sites-conformes"
-version = "3.2.0"
+# Version is driven by the GitHub Release tag at publish time. See
+# .github/workflows/publish.yml, which writes sites_conformes/_version.py
+# from github.event.release.tag_name (stripped of a leading "v").
+# The committed _version.py value is the local/dev fallback.
+dynamic = ["version"]
 description = "Gestionnaire de contenu permettant de créer et gérer un site internet basé sur le Système de design de l’État, accessible et responsive"
 authors = [
     { name = "Sites Conformes dev team", email = "contact@sites.beta.gouv.fr" }
@@ -35,6 +39,7 @@ dependencies = [
     "mozilla-django-oidc>=4.0.1",
     "wand>=0.6.13",
     "wagtail-honeypot>=1.2.1",
+    "sentry-sdk[django]>=2.61.0",
 ]
 
 [dependency-groups]
@@ -50,10 +55,37 @@ dev = [
     "tblib>=3.1.0",
 ]
 
+# Packaging-only — upstream sites-conformes is a Django project and ships
+# no [build-system]. We package it as `sites-conformes` for PyPI.
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = { attr = "sites_conformes._version.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["sites_conformes*"]
+
+[tool.setuptools.package-data]
+sites_conformes = [
+    "templates/**/*",
+    "static/**/*",
+    "*/templates/**/*",
+    "*/static/**/*",
+    "*/page_templates/**/*",
+    "*/locale/*/LC_MESSAGES/*.po",
+    "*/locale/*/LC_MESSAGES/*.mo",
+]
+
 [tool.black]
 line-length = 119
 
-extend-exclude = '''
+# force-exclude (not extend-exclude) is required so that black skips migration
+# files even when pre-commit passes them explicitly on the command line.
+# `extend-exclude` only applies to recursive directory walks.
+force-exclude = '''
 /(
   | migrations
 )/
@@ -116,6 +148,11 @@ exclude = [
     "venv",
     "migrations",
 ]
+
+# force-exclude makes ruff honor the exclude list even when paths are passed
+# explicitly (which is what pre-commit does). Without this, ruff lints
+# migration files regardless of the exclude rule above.
+force-exclude = true
 
 line-length = 119
 

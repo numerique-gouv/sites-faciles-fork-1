@@ -19,9 +19,7 @@ Les tests automatisés couvrent les versions suivantes :
 
 - Pour déployer le projet en production sur un serveur, voir la [documentation d'installation](https://sites.beta.gouv.fr/documentation/installation/)
 - Pour installer le projet en local pour le développement, voir la [documentation d'embarquement](./ONBOARDING.md)
-- Avant de soumettre une contribution, consulter la  [documentation de contribution](./CONTRIBUTING.md)
-
-[![Déployer sur Scalingo (en test)](https://raw.githubusercontent.com/numerique-gouv/sites-conformes/refs/heads/main/static/artwork/logo-white-bg.svg)](https://dashboard.scalingo.com/create/app?source=https://github.com/numerique-gouv/sites-conformes#production)
+- Avant de soumettre une contribution, consulter la [documentation de contribution](./CONTRIBUTING.md)
 
 ### Git blame
 
@@ -40,9 +38,9 @@ Voir [`docs/git-blame-ignore-revs.md`](./docs/git-blame-ignore-revs.md) pour plu
 [![Made with Django](https://img.shields.io/badge/Made%20with-Django-0C4B33.svg)](https://www.djangoproject.com/)
 [![Made with Wagtail](https://img.shields.io/badge/Made%20with-Wagtail-0F7676.svg)](https://wagtail.io/)
 
-Sites Conformes est développé en utilisant le framework [Django](https://www.djangoproject.com/) et le CMS [Wagtail](https://wagtail.org/). Il est centré autour d'une application principale nommée **content_manager**, accompagnée d’applications annexes pour divers types de pages :
+Sites Conformes est développé en utilisant le framework [Django](https://www.djangoproject.com/) et le CMS [Wagtail](https://wagtail.org/). Il est centré autour d'une application principale nommée **sites_conformes.core**, accompagnée d’applications annexes pour divers types de pages :
 
-- **content_manager** : l’application principale, contient les contenus communs, les pages standard (pages de contenu), les pages d’index de catalogue et la gestion des configurations
+- **sites_conformes.core** : l’application principale, contient les contenus communs, les pages standard (pages de contenu), les pages d’index de catalogue et la gestion des configurations
 - **blog** : Permet de gérer des articles de blog et des index de blog, et les flux RSS correspondants.
 - **dashboard** : Contient les personnalisations des panneaux d’administration de Wagtail (dans `templates/wagtailadmin` et `wagtail_hooks.py`)
 - **[django-dsfr](https://github.com/numerique-gouv/django-dsfr)** : Permet d’utiliser facilement le [système de design de l’État](https://www.systeme-de-design.gouv.fr/) dans des templates Django.
@@ -61,11 +59,11 @@ En plus des applications déjà citées, le dépôt contient les répertoires su
 - **static** : des fichiers statiques communs à l’ensemble du site (CSS global, JS global, quelques images intégrées par défaut) ainsi que la librairie tierce TarteaucitronJS (utilisée pour la gestion des cookies tiers)
 - **templates** : les templates de base du site.
 
-## Schéma
+### Schéma
 
-![Schéma montrant les apps listées ci-dessus ainsi que l’interconnection avec la BDD, le S3 et les services tiers (dont ProConnect)](static/doc/sites-conformes-schema.svg)
+![Schéma montrant les apps listées ci-dessus ainsi que l’interconnection avec la BDD, le S3 et les services tiers (dont ProConnect)](sites_conformes/static/doc/sites-conformes-schema.svg)
 
-Schéma de l’application dans le cas d’un hébergement sur Scalingo
+Schéma de l’application dans le cas d’un hébergement sur Scalingo.
 
 ## Indexation des contenus
 
